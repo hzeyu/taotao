@@ -20,5 +20,6 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	
-	<mvc:default-servlet-handler/>
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
 </beans>
