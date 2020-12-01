@@ -25,7 +25,6 @@ public class ItemController {
 	
 	@RequestMapping("/list")
 	public R showItemList(Integer page,Integer rows) {
-		System.out.println(11);
 		try {
 			R r = itemService.getItemList(page, rows);
 			return r;
