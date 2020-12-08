@@ -1,8 +1,10 @@
 package com.taotao.dataresult;
 
 import java.util.HashMap;
-
-
+/**
+ * @author admin
+ *	封装返回值工具类
+ */
 public class R extends HashMap{
 	
 	private int code;
