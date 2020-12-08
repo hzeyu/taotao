@@ -13,6 +13,11 @@
 	    <artifactId>taotao-manage-mapper</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+	  	<groupId>com.taotao</groupId>
+	    <artifactId>taotao-common</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   	<!-- Spring -->
 	<dependency>
 		<groupId>org.springframework</groupId>
