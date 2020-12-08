@@ -23,17 +23,17 @@ public class ItemCatServiceImpl implements ItemCatService{
 	@Override
 	public List<EUITreeDate> findItemCatsByParentId(Long parentId) {
 		
-		//¸ù¾İparentid²éÑ¯×Ó²Ëµ¥ÁĞ±í
+		//æ ¹æ®parentidæŸ¥è¯¢å­èœå•åˆ—è¡¨
 		TbItemCatExample example = new TbItemCatExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andParentIdEqualTo(parentId);
 		List<TbItemCat> itemCats = itemCatMapper.selectByExample(example);
 		
-		//´æ·Å½á¹û¼¯ºÏ
+		//å­˜æ”¾ç»“æœé›†åˆ
 		List<EUITreeDate> list = new ArrayList<EUITreeDate>();
 		
 		for (TbItemCat tbItemCat : itemCats) {
-			//½«½á¹û·â×°³ÉEUITreeDateÀàĞÍ
+			//å°†ç»“æœå°è£…æˆEUITreeDateç±»å‹
 			EUITreeDate euiTreeDate = new EUITreeDate();
 			euiTreeDate.setId(tbItemCat.getId());
 			euiTreeDate.setText(tbItemCat.getName());

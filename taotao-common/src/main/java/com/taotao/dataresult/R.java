@@ -2,12 +2,7 @@ package com.taotao.dataresult;
 
 import java.util.HashMap;
 
-/**
- * @author admin
- *	封装返回值工具类
- *	code：返回结果状态，0：成功，1：失败
- *	msg：返回状态信息
- */
+
 public class R extends HashMap{
 	
 	private int code;
@@ -28,10 +23,10 @@ public class R extends HashMap{
 	R(int code,String msg){}
 	
 	public static R ok() {
-		return new R(0,"成功");
+		return new R(0,"锟缴癸拷");
 	}
 	public static R error() {
-		return new R(1,"失败");
+		return new R(1,"失锟斤拷");
 	}
 	public static R ok(String msg) {
 		return new R(0,msg);

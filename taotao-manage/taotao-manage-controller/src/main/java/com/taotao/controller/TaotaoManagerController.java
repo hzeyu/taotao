@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TaotaoManagerController {
 	
-	//·ÃÎÊÊ×Ò³
+	//è®¿é—®é¦–é¡µ
 	@RequestMapping("/")
 	public String toIndex() {
 		return "index";
 	}
 	
-	//·ÃÎÊÇ°¶ËÒ³Ãæ£¬´«À´ÄÄÒ»Ò³È¥ÄÄÒ»Ò³
+	//è®¿é—®å‰ç«¯é¡µé¢ï¼Œä¼ æ¥å“ªä¸€é¡µå»å“ªä¸€é¡µ
 	@RequestMapping("/{page}")
 	public String toPage(String page) {
 		return page;

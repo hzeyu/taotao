@@ -30,15 +30,15 @@ public class ItemServiceImpl implements ItemService{
 	@Override
 	public R getItemList(Integer page, Integer rows) {
 		
-		//¿ªÆô·ÖÒ³
+		//å¼€å¯åˆ†é¡µ
 		PageHelper.startPage(page,rows);
 		
-		//²éÑ¯ÉÌÆ·ÁĞ±í
+		//æŸ¥è¯¢å•†å“åˆ—è¡¨
 		TbItemExample tbItemExample = new TbItemExample();
 		Criteria criteria = tbItemExample.createCriteria();
 		List<TbItem> items = itemMapper.selectByExample(tbItemExample);
 		
-		//·Ö×°½á¹û¼¯
+		//å°è£…ç»“æœé›†
 		if(items!=null && items.size()>0) {
 			PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(items);
 			
@@ -49,7 +49,7 @@ public class ItemServiceImpl implements ItemService{
 			return r;
 		}
 		
-		new RuntimeException("Ã»ÓĞ²éÑ¯µ½½á¹û¼¯");
+		new RuntimeException("æ²¡æœ‰æŸ¥è¯¢åˆ°ç»“æœé›†");
 		return null;
 	}
 
