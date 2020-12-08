@@ -9,4 +9,5 @@ public interface ItemService {
 	
 	R getItemList(Integer page,Integer rows);
 
+	R saveItem(TbItem item);
 }

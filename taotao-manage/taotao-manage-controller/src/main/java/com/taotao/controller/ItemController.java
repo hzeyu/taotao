@@ -35,4 +35,10 @@ public class ItemController {
 		}
 		
 	}
+	
+	@RequestMapping("/save")
+	public R saveItem(TbItem item) {
+		R r = itemService.saveItem(item);
+		return r;
+	}
 }
