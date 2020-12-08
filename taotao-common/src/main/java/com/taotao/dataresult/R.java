@@ -4,6 +4,8 @@ import java.util.HashMap;
 /**
  * @author admin
  *	封装返回值工具类
+ *	code：返回值状态，0：成功，1：失败
+ *	msg：返回值信息
  */
 public class R extends HashMap{
 	
@@ -25,10 +27,10 @@ public class R extends HashMap{
 	R(int code,String msg){}
 	
 	public static R ok() {
-		return new R(0,"�ɹ�");
+		return new R(0,"成功");
 	}
 	public static R error() {
-		return new R(1,"ʧ��");
+		return new R(1,"失败");
 	}
 	public static R ok(String msg) {
 		return new R(0,msg);
