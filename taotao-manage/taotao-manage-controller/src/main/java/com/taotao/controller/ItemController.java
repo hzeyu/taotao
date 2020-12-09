@@ -37,8 +37,15 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/save")
-	public R saveItem(TbItem item) {
-		R r = itemService.saveItem(item);
+	public R saveItem(TbItem item,String desc,String itemParams) {
+		R r = null;
+		try {
+			r = itemService.saveItem(item,desc,itemParams);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return r;
 	}
 }

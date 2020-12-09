@@ -31,6 +31,7 @@
 			<tx:method name="del*" propagation="REQUIRED"/>
 			<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
 			<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+			<tx:method name="query*" propagation="REQUIRED" read-only="true"/>
 		</tx:attributes>
 	</tx:advice>
 	
