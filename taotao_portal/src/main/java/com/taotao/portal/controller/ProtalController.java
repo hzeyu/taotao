@@ -8,7 +8,6 @@ public class ProtalController {
 	
 	@RequestMapping("/index")
 	public String toIndex() {
-		System.out.println(111);
 		return "index";
 	}
 
