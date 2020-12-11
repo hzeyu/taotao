@@ -32,6 +32,7 @@
 		<jedis.version>2.7.2</jedis.version>
 		<solrj.version>4.10.3</solrj.version>
 		<fastdfs.version>1.27-SNAPSHOT</fastdfs.version>
+		<fastjson.version>1.2.57</fastjson.version>
 	</properties>
 	<!-- 只定义依赖的版本，并不实际依赖 -->
 	<dependencyManagement>
@@ -63,6 +64,11 @@
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
 				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
 			</dependency>
 			<!-- httpclient -->
 			<dependency>

@@ -32,7 +32,7 @@
 <!-- header end -->
 <div class="w">
 <div id="o-slide">
-<div class="slide" id="slide">
+<div class="slide" id="slide"><!-- 滑动广告位 -->
 <script type="text/javascript">
 ;(function(cfg, doc) {
     if ( !cfg.DATA_MSlide ) {
