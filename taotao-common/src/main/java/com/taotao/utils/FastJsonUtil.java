@@ -42,6 +42,7 @@ public class FastJsonUtil {
 		//将字符串转换成json对象
 		JSONObject jsonpObject = JSON.parseObject(str);
 		//将字符串转换成json数组
+		System.out.println(node);
 		JSONArray jsonArray = jsonpObject.getJSONArray(node);
 		
 		List<?> parseArray = JSONObject.parseArray(jsonArray.toString(), clazz);

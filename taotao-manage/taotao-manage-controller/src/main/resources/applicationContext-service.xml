@@ -40,4 +40,7 @@
 		<aop:pointcut expression="execution(* com.taotao.service.impl.*.*(..))" id="txPointcut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
 	</aop:config>
+	
+	
+
 </beans>
