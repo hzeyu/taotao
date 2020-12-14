@@ -5,15 +5,19 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.taotao.mapper.TbItemCatMapper;
+import com.taotao.pojo.TbContent;
 import com.taotao.pojo.TbItemCat;
 import com.taotao.pojo.TbItemCatExample;
 import com.taotao.pojo.TbItemCatExample.Criteria;
+import com.taotao.server.jedis.TaotaoJedisClient;
 import com.taotao.server.pojo.CatNode;
 import com.taotao.server.pojo.CatResult;
 import com.taotao.server.service.ItemCatService;
+import com.taotao.utils.JsonUtils;
 
 /**
  * @author hanzeyu
@@ -23,12 +27,36 @@ public class ItemCatServiceImpl implements ItemCatService {
 
 	@Resource
 	private TbItemCatMapper itemCatMapper;
+	@Resource
+	private TaotaoJedisClient jedisClient;
 
+	@Value("${INDEX_ITEMCAT_REDIS_KEY}")
+	private String INDEX_ITEMCAT_REDIS_KEY;
+	@Value("${INDEX_CONTENT_REDIS_KEY}")
+	private String INDEX_CONTENT_REDIS_KEY;
+	
 	/**
 	 * 首页商品分类数据
 	 */
 	@Override
 	public CatResult findAllCatForCatResult() {
+		
+		//查询之前查看是否有缓存，有缓存直接返回结果,缓存不能影响程序正常执行，有异常要处理
+		try {
+			String hget = jedisClient.hget(INDEX_CONTENT_REDIS_KEY, INDEX_ITEMCAT_REDIS_KEY);
+			
+			if(hget!="" && hget!=null) {
+				List<CatNode> catNodes = JsonUtils.jsonToList(hget, CatNode.class);
+				
+				//将结果封装成CatResult类型
+				CatResult catResult = new CatResult();
+				catResult.setData(catNodes);
+				return catResult;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		//从第一层父节点开始查
 		List<?> result = getCatResult(0l);
 		
@@ -36,6 +64,15 @@ public class ItemCatServiceImpl implements ItemCatService {
 		CatResult catResult = new CatResult();
 		catResult.setData(result);
 		
+		//将查询结果添加到缓存中,缓存不能影响程序正常执行，有异常要处理
+		String contensdJson = JsonUtils.objectToJson(result);
+		try {
+			jedisClient.hset(INDEX_CONTENT_REDIS_KEY, INDEX_ITEMCAT_REDIS_KEY, contensdJson);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 		return catResult;
 	}
 
