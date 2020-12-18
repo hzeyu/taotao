@@ -7,5 +7,7 @@ import com.taotao.search.pojo.Item;
 public interface ItemMapper {
 	
 	List<Item> getAllItems();
+	
+	Item getItemById(String id);
 
 }

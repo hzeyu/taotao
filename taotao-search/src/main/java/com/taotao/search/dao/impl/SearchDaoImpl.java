@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -40,10 +39,10 @@ public class SearchDaoImpl implements SearchDao{
 		for (SolrDocument document : results) {
 			Item item = new Item();
 			item.setId((String) document.get("id"));
-			item.setItem_category_name((String) document.get("item_category_name"));
-			item.setItem_image((String) document.get("item_image"));
-			item.setItem_price((Long) document.get("item_price"));
-			item.setItem_sell_point((String) document.get("item_sell_point"));
+			item.setCategory_name((String) document.get("item_category_name"));
+			item.setImage((String) document.get("item_image"));
+			item.setPrice((Long) document.get("item_price"));
+			item.setSell_point((String) document.get("item_sell_point"));
 			//设置高亮字段
 			List<String> list = highlighting.get(document.get("id")).get("item_title");
 			String title = "";
@@ -52,7 +51,7 @@ public class SearchDaoImpl implements SearchDao{
 			} else {
 				title = document.get("item_title")+"";
 			}
-			item.setItem_title(title);
+			item.setTitle(title);
 			
 			items.add(item);
 		}

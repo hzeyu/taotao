@@ -1,10 +1,13 @@
 package com.taotao.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -19,6 +22,7 @@ import com.taotao.pojo.TbItemExample;
 import com.taotao.pojo.TbItemExample.Criteria;
 import com.taotao.pojo.TbItemParamItem;
 import com.taotao.service.ItemService;
+import com.taotao.utils.HttpClientUtil;
 import com.taotao.utils.IDUtils;
 
 @Service
@@ -30,6 +34,10 @@ public class ItemServiceImpl implements ItemService{
 	private TbItemDescMapper itemDescMapper;
 	@Resource
 	private TbItemParamItemMapper itemParamItemMapper;
+	@Value("${SOLR_SERVER_BASE_PATH}")
+	private String SOLR_SERVER_BASE_PATH;
+	@Value("${SOLR_SERVER_ADDITEM_PATH}")
+	private String SOLR_SERVER_ADDITEM_PATH;
 
 	@Override
 	public TbItem findItemById(Long id) {
@@ -102,6 +110,12 @@ public class ItemServiceImpl implements ItemService{
 			r = R.ok();
 			//添加成功，状态码为200
 			r.put("status", 200);
+			
+			//添加数据库成功，将商品添加到索引库
+			Map<String,String> map = new HashMap();
+			map.put("itemId",itemId+"");
+			HttpClientUtil.doGet(SOLR_SERVER_BASE_PATH+SOLR_SERVER_ADDITEM_PATH+itemId);
+			
 		}else {
 			throw new Exception("添加失败");
 		}

@@ -5,17 +5,33 @@
 	<select id="getAllItems" resultType="com.taotao.search.pojo.Item">
 		select 
 		a.id,
-		a.title item_title,
-		a.sell_point item_sell_point,
-		a.image item_image,
-		a.price item_price,
-		b.name item_category_name,
-		c.item_desc
+		a.title,
+		a.sell_point,
+		a.image,
+		a.price,
+		b.name category_name,
+		c.item_desc `desc`
 		from tb_item a
 		LEFT JOIN tb_item_cat b
 		on a.cid=b.id
 		LEFT JOIN tb_item_desc c
 		on a.id=c.item_id
+	</select>
+	<select id="getItemById" resultType="com.taotao.search.pojo.Item" parameterType="String">
+		select 
+		a.id,
+		a.title,
+		a.sell_point,
+		a.image,
+		a.price,
+		b.name category_name,
+		c.item_desc `desc`
+		from tb_item a
+		LEFT JOIN tb_item_cat b
+		on a.cid=b.id
+		LEFT JOIN tb_item_desc c
+		on a.id=c.item_id
+		where a.id=#{id}
 	</select>
   
 </mapper>

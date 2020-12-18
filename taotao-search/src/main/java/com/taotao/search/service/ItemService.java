@@ -5,5 +5,7 @@ import com.taotao.dataresult.R;
 public interface ItemService {
 	
 	R importAllItems();
+	
+	R importItem(String itemId);
 
 }
