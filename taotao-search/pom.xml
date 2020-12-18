@@ -15,18 +15,21 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.taotao</groupId>
-			<artifactId>taotao-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.taotao</groupId>
-			<artifactId>taotao-manage-mapper</artifactId>
+			<artifactId>taotao-manage-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- solr客户端 -->
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-solrj</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.noggit</groupId>
+			<artifactId>noggit</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -39,7 +42,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<port>8082</port>
+					<port>8084</port>
 					<path>/</path>
 				</configuration>
 			</plugin>

@@ -6,11 +6,10 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-   
-   <!-- solr单机版 -->  
-   <bean id="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
-		<constructor-arg name="baseURL" value="${SOLR.SERVER.URL}"></constructor-arg>
-	</bean>
-      
-   
+        
+    <!-- solr单机版 -->
+    <bean name="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+    	<constructor-arg name="baseURL" value="${SOLR_SERVER_URL}"></constructor-arg>
+    </bean>
+	
 </beans>
