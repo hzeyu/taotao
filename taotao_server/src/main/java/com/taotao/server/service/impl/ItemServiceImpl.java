@@ -13,6 +13,7 @@ import com.taotao.mapper.TbItemMapper;
 import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
+import com.taotao.pojo.TbItemDescExample;
 import com.taotao.pojo.TbItemParamItem;
 import com.taotao.pojo.TbItemParamItemExample;
 import com.taotao.pojo.TbItemParamItemExample.Criteria;
@@ -104,8 +105,14 @@ public class ItemServiceImpl implements ItemService {
 			e.printStackTrace();
 		}
 
+		
 		// 缓存中没有数据，查库
-		TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(itemId);
+		TbItemDescExample example = new TbItemDescExample();
+		com.taotao.pojo.TbItemDescExample.Criteria criteria = example.createCriteria();
+		criteria.andItemIdEqualTo(itemId);
+		List<TbItemDesc> list = tbItemDescMapper.selectByExampleWithBLOBs(example );
+		TbItemDesc tbItemDesc = list.get(0);
+		
 
 		// 写入缓存,缓存业务不能印象正常业务逻辑
 		try {

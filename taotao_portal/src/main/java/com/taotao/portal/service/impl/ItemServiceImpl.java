@@ -50,7 +50,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public TbItemDesc getItemDescByItemId(Long itemId) {
+	public String getItemDescByItemId(Long itemId) {
 		try {
 			String itemJson = HttpClientUtil.doGet(SERVER_BASE_URL + SERVER_QUERY_ITEMDESC_URL + itemId);
 
@@ -59,8 +59,9 @@ public class ItemServiceImpl implements ItemService {
 				Object object = r.get("data");
 				String dataJson = JsonUtils.objectToJson(object);
 				TbItemDesc tbItemDesc = JsonUtils.jsonToPojo(dataJson, TbItemDesc.class);
-
-				return tbItemDesc;
+				String itemDesc = tbItemDesc.getItemDesc();
+				if(itemDesc!="" && itemDesc!=null)
+					return itemDesc;
 			}
 
 		} catch (Exception e) {

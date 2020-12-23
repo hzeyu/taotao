@@ -209,8 +209,8 @@
 			</div>
 			<div class="mc" data-widget="tab-content" id="product-detail-1">
 				<ul class="detail-list">
-					<li title="长虹LED42538ES">商品名称：长虹LED42538ES</li>
-					<li>商品编号：1221882</li>
+					<li title=${item_title }>商品名称：${item.title }</li>
+					<li>商品编号：${item.id }</li>
 					<li>品牌：<a href="http://www.jd.com/pinpai/798-20710.html" target="_blank">长虹（CHANGHONG）</a></li>
 					<li>上架时间：2014-09-24 15:45:26</li>
 					<li>商品毛重：13.5kg</li>
@@ -221,7 +221,7 @@
 					<b></b>如果您发现商品信息不准确，欢迎纠错
 				</div>
 				<div id="item-desc" class="detail-content">
-						${itemDesc.itemDesc }
+						<%-- ${itemDesc.itemDesc } --%>
 				</div>
 			</div>
 			<div class="mc hide" data-widget="tab-content" id="product-detail-2">

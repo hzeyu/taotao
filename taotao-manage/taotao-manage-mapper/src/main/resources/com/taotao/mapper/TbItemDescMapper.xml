@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    item_id, created, updated
+    item_id, item_desc,created, updated
   </sql>
   <sql id="Blob_Column_List" >
     item_desc

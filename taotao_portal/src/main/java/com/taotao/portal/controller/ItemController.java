@@ -29,11 +29,12 @@ public class ItemController {
 		return "item";
 	}
 	
-	@RequestMapping("/desc/{itemId}")
+	@RequestMapping(value = "/desc/{itemId}", produces=MediaType.TEXT_HTML_VALUE+";charset=utf-8")
+	@ResponseBody
 	public String getItemDesc(@PathVariable Long itemId,Model model) {
-		TbItemDesc itemDesc = itemService.getItemDescByItemId(itemId);
-		model.addAttribute("itemDesc",itemDesc);
-		return "item";
+		String itemDesc = itemService.getItemDescByItemId(itemId);
+		
+		return itemDesc;
 	}
 	
 	@RequestMapping(value = "/param/{itemId}", produces=MediaType.TEXT_HTML_VALUE+";charset=utf-8")
