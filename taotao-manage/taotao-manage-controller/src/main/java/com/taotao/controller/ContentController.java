@@ -25,7 +25,7 @@ public class ContentController {
 			@RequestParam(defaultValue = "30")Integer rows) {
 		
 		R r = contentService.getContentListByContentCategoryId(categoryId, page, rows);
-		
+		System.out.println();
 		return r;
 	}
 	

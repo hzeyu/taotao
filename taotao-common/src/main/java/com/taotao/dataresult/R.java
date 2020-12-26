@@ -23,9 +23,13 @@ public class R extends HashMap{
 	public void setMgs(String mgs) {
 		this.mgs = mgs;
 	}
-	R(){}
-	R(int code,String msg){}
+	private R(){}
 	
+	private R(int code, String mgs) {
+		super();
+		put("code", code);
+		put("mgs", mgs);
+	}
 	public static R ok() {
 		return new R(0,"成功");
 	}
