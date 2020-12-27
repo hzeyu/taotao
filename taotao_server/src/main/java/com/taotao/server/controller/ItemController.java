@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.taotao.dataresult.R;
@@ -16,19 +17,19 @@ public class ItemController {
 	@Resource
 	private ItemService itemService;
 	
-	@RequestMapping("/info/{itemId}")
+	@RequestMapping(value = "/info/{itemId}",method = RequestMethod.GET)
 	public R getItemInfo(@PathVariable Long itemId) {
 		R r = itemService.getItemInfoByItemId(itemId);
 		return r;
 	}
 	
-	@RequestMapping("/desc/{itemId}")
+	@RequestMapping(value = "/desc/{itemId}",method = RequestMethod.GET)
 	public R getItemDesc(@PathVariable Long itemId) {
 		R r = itemService.getItemDescByItemId(itemId);
 		return r;
 	}
 	
-	@RequestMapping("/param/{itemId}")
+	@RequestMapping(value = "/param/{itemId}",method = RequestMethod.GET)
 	public R getItemParam(@PathVariable Long itemId) {
 		R r = itemService.getItemParamByItemId(itemId);
 		return r;
