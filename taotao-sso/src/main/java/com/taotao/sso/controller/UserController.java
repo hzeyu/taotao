@@ -1,6 +1,8 @@
 package com.taotao.sso.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
@@ -116,7 +118,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	@ResponseBody
-	public R login(String username,String password) {
+	public R login(String username,String password,
+			HttpServletRequest request,HttpServletResponse response) {
 		//返回结果
 		R r = null;
 		
@@ -128,7 +131,7 @@ public class UserController {
 		}
 		
 		//执行登录逻辑
-		r = userService.getUserByUsernameAndPassword(username, password);
+		r = userService.getUserByUsernameAndPassword(username, password,request,response);
 		return r;
 	}
 	
@@ -160,6 +163,34 @@ public class UserController {
 		MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(r);
 		mappingJacksonValue.setJsonpFunction(callback);
 		
+		return mappingJacksonValue;
+	}
+	
+	/**
+	 * 
+	 * @Title: logout   
+	 * @Description: 安全退出方法
+	 * @author:hanzeyu
+	 * @param: @param token
+	 * @param: @param callback
+	 * @param: @param request
+	 * @param: @param response
+	 * @param: @return      
+	 * @return: Object      
+	 * @throws
+	 */
+	@RequestMapping(value = "/logout/{token}",method = RequestMethod.GET)
+	@ResponseBody
+	public Object logout(@PathVariable String token,String callback,
+			HttpServletRequest request,HttpServletResponse response) {
+		R r = userService.delToken(token, request, response);
+		
+		if(StringUtil.isNull(callback)) {
+			return r;
+		}
+		
+		MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(r);
+		mappingJacksonValue.setJsonpFunction(callback);
 		return mappingJacksonValue;
 	}
 }

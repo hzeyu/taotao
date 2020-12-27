@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -17,6 +20,7 @@ import com.taotao.pojo.TbUserExample;
 import com.taotao.pojo.TbUserExample.Criteria;
 import com.taotao.sso.jedis.TaotaoJedisClient;
 import com.taotao.sso.service.UserService;
+import com.taotao.utils.CookieUtils;
 import com.taotao.utils.JsonUtils;
 import com.taotao.utils.StringUtil;
 /**
@@ -38,6 +42,8 @@ public class UserServiceImpl implements UserService{
 	private String USER_LOGIN_TOKEN_KEY;
 	@Value("${USER_LOGIN_TOKEN_EXPIRE}")
 	private Integer USER_LOGIN_TOKEN_EXPIRE;
+	@Value("${USERTOKEN_COOKIE}")
+	private String USERTOKEN_COOKIE;
 
 
 	/**
@@ -126,7 +132,8 @@ public class UserServiceImpl implements UserService{
 	 * @return   
 	 * @see com.taotao.sso.service.UserService#getUserByUsernameAndPassword(java.lang.String, java.lang.String)
 	 */
-	public R getUserByUsernameAndPassword(String username, String password) {
+	public R getUserByUsernameAndPassword(String username, String password,
+			HttpServletRequest request,HttpServletResponse response) {
 		//返回结果
 		R r = null;
 		
@@ -135,7 +142,7 @@ public class UserServiceImpl implements UserService{
 		Criteria criteria = example.createCriteria();
 		criteria.andUsernameEqualTo(username);
 		List<TbUser> list = tbUserMapper.selectByExample(example);
-		if(null == list && list.size()==0) {
+		if(list==null || list.size()==0) {
 			//根据该username没有查询到结果
 			r = R.error("用户名或密码错误");
 			r.put("status", 400);
@@ -159,6 +166,9 @@ public class UserServiceImpl implements UserService{
 		jedisClient.set(USER_LOGIN_TOKEN_KEY + ":" + token, JsonUtils.objectToJson(user));
 		//设置过期时间
 		jedisClient.expire(USER_LOGIN_TOKEN_KEY + ":" + token, USER_LOGIN_TOKEN_EXPIRE);
+		
+		//分布式环境中，其他工程需要获取登录状态，把token写入到cookie中，其他工程从cookie中取到token换取登录信息
+		CookieUtils.setCookie(request, response, USERTOKEN_COOKIE, token+"");
 		
 		r = R.ok("ok");
 		r.put("status", 200);
@@ -197,6 +207,39 @@ public class UserServiceImpl implements UserService{
 		r.put("status", 200);
 		r.put("data", user);
 		return r;
+	}
+
+	/**
+	 * 
+	 * <p>Title: delToken</p>   
+	 * <p>Description: 安全退出，删除该token</p>   
+	 * @param token
+	 * @return   
+	 * @see com.taotao.sso.service.UserService#delToken(java.lang.String)
+	 */
+	@Override
+	public R delToken(String token,HttpServletRequest request,HttpServletResponse response) {
+		//返回结果
+		R r = null;
+		
+		try {
+			//删除token
+			jedisClient.del(USER_LOGIN_TOKEN_KEY + ":" + token);
+			//清空cookie
+			CookieUtils.deleteCookie(request, response, token);
+			
+			r = R.ok("ok");
+			r.put("status", 200);
+			return r;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			r = R.error(e.getStackTrace()+"");
+			r.put("status", 500);
+			return r;
+		}
+		
 	}
 
 }
