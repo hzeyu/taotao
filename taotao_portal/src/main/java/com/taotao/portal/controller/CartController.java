@@ -41,6 +41,7 @@ public class CartController {
 		if(r.getCode() == 0) {
 			return "redirect:/cart/success.html";
 		}
+		
 		return "redirect:/cart/error.html";
 		
 	}

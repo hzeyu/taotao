@@ -26,7 +26,6 @@ public class SearchController {
 			@RequestParam(defaultValue = "60")Integer rows,
 			Model model) {
 		
-		System.out.println("11111111111111111111");
 		if(queryString!=null && queryString!="") {
 			try {
 				queryString = new String(queryString.getBytes("iso8859-1"),"utf-8");

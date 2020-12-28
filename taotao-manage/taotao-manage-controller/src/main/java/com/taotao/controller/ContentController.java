@@ -1,7 +1,5 @@
 package com.taotao.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,6 @@ public class ContentController {
 			@RequestParam(defaultValue = "30")Integer rows) {
 		
 		R r = contentService.getContentListByContentCategoryId(categoryId, page, rows);
-		System.out.println();
 		return r;
 	}
 	
@@ -37,7 +34,6 @@ public class ContentController {
 	
 	@RequestMapping(value = "/delete",method = RequestMethod.POST)
 	public R delContents(Long[] ids) {
-		System.out.println(1111111);
 		R r = contentService.deleteContentdById(ids);
 		return r;
 		

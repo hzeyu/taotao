@@ -19,7 +19,6 @@ public class ItemController {
 	@RequestMapping("/findItemById")
 	public TbItem findItemById(Long id) {
 		TbItem item = itemService.findItemById(id);
-		System.out.println(item);
 		return item;
 	}
 	

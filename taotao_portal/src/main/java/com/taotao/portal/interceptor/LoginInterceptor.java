@@ -27,7 +27,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("进来了");
 		// 执行handler之前拦截
 		//从cookie中取token
 		String token = CookieUtils.getCookieValue(request, USERTOKEN_COOKIE, "utf-8");

@@ -18,7 +18,6 @@ public class RedisCacheController {
 	
 	@RequestMapping("/synchro/{categoryId}")
 	public R synchro(@PathVariable Long categoryId) {
-		System.out.println(categoryId);
 		R r = redisCacheService.synchro(categoryId);
 		return r;
 	}
