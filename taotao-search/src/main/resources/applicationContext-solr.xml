@@ -8,8 +8,14 @@
     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
         
     <!-- solr单机版 -->
-    <bean name="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+    <!-- <bean name="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
     	<constructor-arg name="baseURL" value="${SOLR_SERVER_URL}"></constructor-arg>
-    </bean>
+    </bean> -->
+	
+	<!-- 集群版 -->
+	<bean name="solrServer" class="org.apache.solr.client.solrj.impl.CloudSolrServer">
+		<constructor-arg name="zkHost" value="${SOLR_CLOUD_URL}"></constructor-arg>
+		<property name="defaultCollection" value="${SOLR_DEFAULT_COLLECTION}"></property>
+	</bean>
 	
 </beans>
